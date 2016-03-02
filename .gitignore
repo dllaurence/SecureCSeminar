@@ -1,3 +1,12 @@
 *.swp
+\#*\#
+.\#*
 unused
 *~
+*.o
+*.s
+
+exercise1
+*-O0
+*-O1
+*-O2
