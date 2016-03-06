@@ -3,11 +3,6 @@
 # Copyright Dustin Laurence, 2016.  This file may be used and/or
 # redistributed for any purpose in any form.
 
-VPATH = ./src
-
-
-CFLAGS=-O2 # -Wall -Werror
-
 
 ALL = exercise1 \
       int-overflow-gcc-O0 int-overflow-gcc-O1 int-overflow-gcc-O2 \
@@ -20,6 +15,23 @@ ALL = exercise1 \
 
 .PHONY: all
 all: $(ALL)
+
+
+######################################################################
+# Source Locations
+#
+######################################################################
+
+
+VPATH = ./src
+
+
+######################################################################
+# Dependencies
+#
+######################################################################
+
+
 
 exercise1: exercise1.o records.o
 exercise1.o: records.h
@@ -94,6 +106,18 @@ exception-try: exception-try.cc
 
 exception-auto: exception-auto.cc
 	g++ -O2 $< -o $@
+
+
+######################################################################
+# Rules
+#
+######################################################################
+
+
+######################################################################
+# Convenience Targets
+#
+######################################################################
 
 
 .PHONY: clean
