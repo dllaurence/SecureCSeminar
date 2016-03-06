@@ -13,7 +13,8 @@ ALL = exercise1 \
       int-overflow-clang-O0 int-overflow-clang-O1 int-overflow-clang-O2 \
       int-overflow-clang-O0.s int-overflow-clang-O1.s int-overflow-clang-O2.s \
       unsigned-overflow-gcc-O1 unsigned-overflow-gcc-O2 \
-      unsigned-overflow-clang-O1 unsigned-overflow-clang-O2
+      unsigned-overflow-clang-O1 unsigned-overflow-clang-O2 \
+      exception-leak exception-try exception-auto
 
 .PHONY: all
 all: $(ALL)
@@ -79,6 +80,18 @@ unsigned-overflow-clang-O1: unsigned-overflow.c
 
 unsigned-overflow-clang-O2: unsigned-overflow.c
 	clang -O2 $< -o $@
+
+
+exception-leak: exception-leak.cc
+	g++ -O2 $< -o $@
+
+
+exception-try: exception-try.cc
+	g++ -O2 $< -o $@
+
+
+exception-auto: exception-auto.cc
+	g++ -O2 $< -o $@
 
 
 .PHONY: clean
