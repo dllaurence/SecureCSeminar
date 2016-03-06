@@ -3,6 +3,8 @@
 # Copyright Dustin Laurence, 2016.  This file may be used and/or
 # redistributed for any purpose in any form.
 
+VPATH = ./src
+
 
 CFLAGS=-O2 # -Wall -Werror
 
