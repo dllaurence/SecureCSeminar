@@ -1,4 +1,11 @@
 #!/bin/sh
+#
+# test-signed-overflow.sh
+#
+# Copyright Dustin Laurence, 2016.  This file may be used and/or
+# redistributed for any purpose in any form.
+#
+# Test driver for the signed-overflow demo
 
 echo
 echo "Compiler    -O0         -O1        -O2"

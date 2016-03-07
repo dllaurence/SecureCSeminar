@@ -4,33 +4,42 @@
 # redistributed for any purpose in any form.
 
 
-ALL = exercise1 \
-      unsigned-overflow-gcc-O1 unsigned-overflow-gcc-O2 \
-      unsigned-overflow-clang-O1 unsigned-overflow-clang-O2 \
+DEFAULT = exercise1 \
       exception-leak exception-try exception-auto
-.PHONY: all
-all: $(ALL)
+.PHONY: default
+default: $(DEFAULT)
 
 # signed-overflow demo
 SIGNED_OVERFLOW = \
       signed-overflow-gcc-O0 \
       signed-overflow-gcc-O1 \
       signed-overflow-gcc-O2 \
-      signed-overflow-gcc-O0.s \
-      signed-overflow-gcc-O1.s \
-      signed-overflow-gcc-O2.s \
       signed-overflow-clang-O0 \
       signed-overflow-clang-O1 \
       signed-overflow-clang-O2 \
+      signed-overflow-gcc-O0.s \
+      signed-overflow-gcc-O1.s \
+      signed-overflow-gcc-O2.s \
       signed-overflow-clang-O0.s \
       signed-overflow-clang-O1.s \
-      signed-overflow-clang-O2.s \
-      unsigned-overflow-gcc-O1 \
-      unsigned-overflow-gcc-O2 \
-      unsigned-overflow-clang-O1 \
-      unsigned-overflow-clang-O2
+      signed-overflow-clang-O2.s
 .PHONY: signed-overflow
 signed-overflow: $(SIGNED_OVERFLOW)
+
+# unsigned-overflow demo
+UNSIGNED_OVERFLOW = \
+      unsigned-overflow-gcc-O0 \
+      unsigned-overflow-gcc-O1 \
+      unsigned-overflow-gcc-O2 \
+      unsigned-overflow-clang-O0 \
+      unsigned-overflow-clang-O1 \
+      unsigned-overflow-clang-O2
+.PHONY: unsigned-overflow
+unsigned-overflow: $(UNSIGNED_OVERFLOW)
+
+ALL = $(DEFAULT) $(SIGNED_OVERFLOW) $(UNSIGNED_OVERFLOW)
+.PHONY: all
+all: $(ALL)
 
 
 ######################################################################
@@ -55,20 +64,20 @@ exercise1.o: records.h
 records.o: records.h
 
 
-unsigned-overflow-gcc-O1: unsigned-overflow.c
-	gcc -O1 $< -o $@
+#unsigned-overflow-gcc-O1: unsigned-overflow.c
+#	gcc -O1 $< -o $@
 
 
-unsigned-overflow-gcc-O2: unsigned-overflow.c
-	gcc -O2 $< -o $@
+#unsigned-overflow-gcc-O2: unsigned-overflow.c
+#	gcc -O2 $< -o $@
 
 
-unsigned-overflow-clang-O1: unsigned-overflow.c
-	clang -O1 $< -o $@
+#unsigned-overflow-clang-O1: unsigned-overflow.c
+#	clang -O1 $< -o $@
 
 
-unsigned-overflow-clang-O2: unsigned-overflow.c
-	clang -O2 $< -o $@
+#unsigned-overflow-clang-O2: unsigned-overflow.c
+#	clang -O2 $< -o $@
 
 
 exception-leak: exception-leak.cc
@@ -119,7 +128,7 @@ exception-auto: exception-auto.cc
 .PHONY: clean
 clean:
 	rm -rf *.o
-	rm -rf $(ALL) $(SIGNED_OVERFLOW)
+	rm -rf $(ALL)
 
 
 .PHONY: spotless
