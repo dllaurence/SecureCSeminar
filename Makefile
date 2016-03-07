@@ -5,16 +5,32 @@
 
 
 ALL = exercise1 \
-      signed-overflow-gcc-O0 signed-overflow-gcc-O1 signed-overflow-gcc-O2 \
-      signed-overflow-gcc-O0.s signed-overflow-gcc-O1.s signed-overflow-gcc-O2.s \
-      signed-overflow-clang-O0 signed-overflow-clang-O1 signed-overflow-clang-O2 \
-      signed-overflow-clang-O0.s signed-overflow-clang-O1.s signed-overflow-clang-O2.s \
       unsigned-overflow-gcc-O1 unsigned-overflow-gcc-O2 \
       unsigned-overflow-clang-O1 unsigned-overflow-clang-O2 \
       exception-leak exception-try exception-auto
-
 .PHONY: all
 all: $(ALL)
+
+# signed-overflow demo
+SIGNED_OVERFLOW = \
+      signed-overflow-gcc-O0 \
+      signed-overflow-gcc-O1 \
+      signed-overflow-gcc-O2 \
+      signed-overflow-gcc-O0.s \
+      signed-overflow-gcc-O1.s \
+      signed-overflow-gcc-O2.s \
+      signed-overflow-clang-O0 \
+      signed-overflow-clang-O1 \
+      signed-overflow-clang-O2 \
+      signed-overflow-clang-O0.s \
+      signed-overflow-clang-O1.s \
+      signed-overflow-clang-O2.s \
+      unsigned-overflow-gcc-O1 \
+      unsigned-overflow-gcc-O2 \
+      unsigned-overflow-clang-O1 \
+      unsigned-overflow-clang-O2
+.PHONY: signed-overflow
+signed-overflow: $(SIGNED_OVERFLOW)
 
 
 ######################################################################
@@ -39,18 +55,6 @@ exercise1.o: records.h
 records.o: records.h
 
 
-signed-overflow-gcc-O0.s: signed-overflow.c
-	gcc -O0 -S $< -o $@
-
-
-signed-overflow-gcc-O1.s: signed-overflow.c
-	gcc -O1 -S $< -o $@
-
-
-signed-overflow-gcc-O2.s: signed-overflow.c
-	gcc -O2 -S $< -o $@
-
-
 signed-overflow-gcc-O0: signed-overflow-gcc-O0.s
 
 
@@ -58,18 +62,6 @@ signed-overflow-gcc-O1: signed-overflow-gcc-O1.s
 
 
 signed-overflow-gcc-O2: signed-overflow-gcc-O2.s
-
-
-signed-overflow-clang-O0.s: signed-overflow.c
-	clang -O0 -S $< -o $@
-
-
-signed-overflow-clang-O1.s: signed-overflow.c
-	clang -O1 -S $< -o $@
-
-
-signed-overflow-clang-O2.s: signed-overflow.c
-	clang -O2 -S $< -o $@
 
 
 signed-overflow-clang-O0: signed-overflow-clang-O0.s
@@ -115,6 +107,27 @@ exception-auto: exception-auto.cc
 ######################################################################
 
 
+# Rules to compile assembly files with various compilers and optimization
+# levels.
+%-gcc-O0.s : %.c
+	gcc -O0 -S $< -o $@
+
+%-gcc-O1.s : %.c
+	gcc -O1 -S $< -o $@
+
+%-gcc-O2.s : %.c
+	gcc -O2 -S $< -o $@
+
+%-clang-O0.s : %.c
+	clang -O0 -S $< -o $@
+
+%-clang-O1.s : %.c
+	clang -O1 -S $< -o $@
+
+%-clang-O2.s : %.c
+	clang -O2 -S $< -o $@
+
+
 ######################################################################
 # Convenience Targets
 #
@@ -124,7 +137,7 @@ exception-auto: exception-auto.cc
 .PHONY: clean
 clean:
 	rm -rf *.o
-	rm -rf $(ALL)
+	rm -rf $(ALL) $(SIGNED_OVERFLOW)
 
 
 .PHONY: spotless
