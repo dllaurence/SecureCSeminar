@@ -71,8 +71,20 @@ FTRAPV = \
          unpredictable-ub-clang-ftrapv-O2
 ftrapv: $(FTRAPV)
 
+# cub demo
+.PHONY: cub
+CUB = \
+         signed-overflow-clang-cub-O0 \
+         signed-overflow-clang-cub-O1 \
+         signed-overflow-clang-cub-O2 \
+         unpredictable-ub-clang-cub-O0 \
+         unpredictable-ub-clang-cub-O1 \
+         unpredictable-ub-clang-cub-O2
+cub: $(CUB)
+
 # All targets
-ALL = $(DEFAULT) $(SIGNED_OVERFLOW) $(UNSIGNED_OVERFLOW) $(UNPREDICTABLE) $(FTRAPV)
+ALL = $(DEFAULT) $(SIGNED_OVERFLOW) $(UNSIGNED_OVERFLOW) $(UNPREDICTABLE) \
+      $(FTRAPV) $(CUB)
 .PHONY: all
 all: $(ALL)
 
@@ -153,6 +165,16 @@ exception-auto: exception-auto.cc
 
 %-clang-ftrapv-O2 : %.c
 	clang -O2 -ftrapv $< -o $@
+
+# Test -fcatch-undefined-behavior
+%-clang-cub-O0 : %.c
+	clang -O0 -fcatch-undefined-behavior $< -o $@
+
+%-clang-cub-O1 : %.c
+	clang -O1 -fcatch-undefined-behavior $< -o $@
+
+%-clang-cub-O2 : %.c
+	clang -O2 -fcatch-undefined-behavior $< -o $@
 
 ######################################################################
 # Convenience Targets
