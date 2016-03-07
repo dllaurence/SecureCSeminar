@@ -129,4 +129,5 @@ clean:
 
 .PHONY: spotless
 spotless: clean
+	rm -rf *~
 	rm -rf $(SRC_DIRS)/*~
