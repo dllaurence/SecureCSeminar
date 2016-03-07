@@ -55,24 +55,6 @@ exercise1.o: records.h
 records.o: records.h
 
 
-signed-overflow-gcc-O0: signed-overflow-gcc-O0.s
-
-
-signed-overflow-gcc-O1: signed-overflow-gcc-O1.s
-
-
-signed-overflow-gcc-O2: signed-overflow-gcc-O2.s
-
-
-signed-overflow-clang-O0: signed-overflow-clang-O0.s
-
-
-signed-overflow-clang-O1: signed-overflow-clang-O1.s
-
-
-signed-overflow-clang-O2: signed-overflow-clang-O2.s
-
-
 unsigned-overflow-gcc-O1: unsigned-overflow.c
 	gcc -O1 $< -o $@
 
