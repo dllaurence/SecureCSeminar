@@ -8,6 +8,10 @@
 # Test driver for the unsigned-overflow demo
 
 echo
+echo
+echo "Test of unsigned overflow behavior."
+echo "Running unsigned-overflow with different compilers and optimizations"
+echo
 echo "Compiler    -O0         -O1        -O2"
 echo
 echo " GCC     " `./unsigned-overflow-gcc-O0`   "   " \
@@ -15,4 +19,5 @@ echo " GCC     " `./unsigned-overflow-gcc-O0`   "   " \
 
 echo " Clang   " `./unsigned-overflow-clang-O0` "   " \
      `./unsigned-overflow-clang-O1` "   " `./unsigned-overflow-clang-O2`
+echo
 echo

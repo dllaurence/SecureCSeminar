@@ -37,7 +37,42 @@ UNSIGNED_OVERFLOW = \
 .PHONY: unsigned-overflow
 unsigned-overflow: $(UNSIGNED_OVERFLOW)
 
-ALL = $(DEFAULT) $(SIGNED_OVERFLOW) $(UNSIGNED_OVERFLOW)
+# unpredictable demo
+UNPREDICTABLE = \
+      unpredictable-ub-gcc-O0 \
+      unpredictable-ub-gcc-O1 \
+      unpredictable-ub-gcc-O2 \
+      unpredictable-ub-clang-O0 \
+      unpredictable-ub-clang-O1 \
+      unpredictable-ub-clang-O2 \
+      predictable-db-gcc-O0 \
+      predictable-db-gcc-O1 \
+      predictable-db-gcc-O2 \
+      predictable-db-clang-O0 \
+      predictable-db-clang-O1 \
+      predictable-db-clang-O2
+.PHONY: unpredictable
+unpredictable: $(UNPREDICTABLE)
+
+# -ftrapv demo
+.PHONY: ftrapv
+FTRAPV = \
+         signed-overflow-gcc-ftrapv-O0 \
+         signed-overflow-gcc-ftrapv-O1 \
+         signed-overflow-gcc-ftrapv-O2 \
+         signed-overflow-clang-ftrapv-O0 \
+         signed-overflow-clang-ftrapv-O1 \
+         signed-overflow-clang-ftrapv-O2 \
+         unpredictable-ub-gcc-ftrapv-O0 \
+         unpredictable-ub-gcc-ftrapv-O1 \
+         unpredictable-ub-gcc-ftrapv-O2 \
+         unpredictable-ub-clang-ftrapv-O0 \
+         unpredictable-ub-clang-ftrapv-O1 \
+         unpredictable-ub-clang-ftrapv-O2
+ftrapv: $(FTRAPV)
+
+# All targets
+ALL = $(DEFAULT) $(SIGNED_OVERFLOW) $(UNSIGNED_OVERFLOW) $(UNPREDICTABLE) $(FTRAPV)
 .PHONY: all
 all: $(ALL)
 
@@ -63,23 +98,6 @@ exercise1: exercise1.o records.o
 exercise1.o: records.h
 records.o: records.h
 
-
-#unsigned-overflow-gcc-O1: unsigned-overflow.c
-#	gcc -O1 $< -o $@
-
-
-#unsigned-overflow-gcc-O2: unsigned-overflow.c
-#	gcc -O2 $< -o $@
-
-
-#unsigned-overflow-clang-O1: unsigned-overflow.c
-#	clang -O1 $< -o $@
-
-
-#unsigned-overflow-clang-O2: unsigned-overflow.c
-#	clang -O2 $< -o $@
-
-
 exception-leak: exception-leak.cc
 	g++ -O2 $< -o $@
 
@@ -98,8 +116,7 @@ exception-auto: exception-auto.cc
 ######################################################################
 
 
-# Rules to compile assembly files with various compilers and optimization
-# levels.
+# Rules to compile assembly files with various compilers and flags.
 %-gcc-O0.s : %.c
 	gcc -O0 -S $< -o $@
 
@@ -118,6 +135,24 @@ exception-auto: exception-auto.cc
 %-clang-O2.s : %.c
 	clang -O2 -S $< -o $@
 
+# Test -ftrapv
+%-gcc-ftrapv-O0 : %.c
+	gcc -O0 -ftrapv $< -o $@
+
+%-gcc-ftrapv-O1 : %.c
+	gcc -O1 -ftrapv $< -o $@
+
+%-gcc-ftrapv-O2 : %.c
+	gcc -O2 -ftrapv $< -o $@
+
+%-clang-ftrapv-O0 : %.c
+	clang -O0 -ftrapv $< -o $@
+
+%-clang-ftrapv-O1 : %.c
+	clang -O1 -ftrapv $< -o $@
+
+%-clang-ftrapv-O2 : %.c
+	clang -O2 -ftrapv $< -o $@
 
 ######################################################################
 # Convenience Targets
