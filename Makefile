@@ -5,10 +5,10 @@
 
 
 ALL = exercise1 \
-      int-overflow-gcc-O0 int-overflow-gcc-O1 int-overflow-gcc-O2 \
-      int-overflow-gcc-O0.s int-overflow-gcc-O1.s int-overflow-gcc-O2.s \
-      int-overflow-clang-O0 int-overflow-clang-O1 int-overflow-clang-O2 \
-      int-overflow-clang-O0.s int-overflow-clang-O1.s int-overflow-clang-O2.s \
+      signed-overflow-gcc-O0 signed-overflow-gcc-O1 signed-overflow-gcc-O2 \
+      signed-overflow-gcc-O0.s signed-overflow-gcc-O1.s signed-overflow-gcc-O2.s \
+      signed-overflow-clang-O0 signed-overflow-clang-O1 signed-overflow-clang-O2 \
+      signed-overflow-clang-O0.s signed-overflow-clang-O1.s signed-overflow-clang-O2.s \
       unsigned-overflow-gcc-O1 unsigned-overflow-gcc-O2 \
       unsigned-overflow-clang-O1 unsigned-overflow-clang-O2 \
       exception-leak exception-try exception-auto
@@ -39,46 +39,46 @@ exercise1.o: records.h
 records.o: records.h
 
 
-int-overflow-gcc-O0.s: int-overflow.c
+signed-overflow-gcc-O0.s: signed-overflow.c
 	gcc -O0 -S $< -o $@
 
 
-int-overflow-gcc-O1.s: int-overflow.c
+signed-overflow-gcc-O1.s: signed-overflow.c
 	gcc -O1 -S $< -o $@
 
 
-int-overflow-gcc-O2.s: int-overflow.c
+signed-overflow-gcc-O2.s: signed-overflow.c
 	gcc -O2 -S $< -o $@
 
 
-int-overflow-gcc-O0: int-overflow-gcc-O0.s
+signed-overflow-gcc-O0: signed-overflow-gcc-O0.s
 
 
-int-overflow-gcc-O1: int-overflow-gcc-O1.s
+signed-overflow-gcc-O1: signed-overflow-gcc-O1.s
 
 
-int-overflow-gcc-O2: int-overflow-gcc-O2.s
+signed-overflow-gcc-O2: signed-overflow-gcc-O2.s
 
 
-int-overflow-clang-O0.s: int-overflow.c
+signed-overflow-clang-O0.s: signed-overflow.c
 	clang -O0 -S $< -o $@
 
 
-int-overflow-clang-O1.s: int-overflow.c
+signed-overflow-clang-O1.s: signed-overflow.c
 	clang -O1 -S $< -o $@
 
 
-int-overflow-clang-O2.s: int-overflow.c
+signed-overflow-clang-O2.s: signed-overflow.c
 	clang -O2 -S $< -o $@
 
 
-int-overflow-clang-O0: int-overflow-clang-O0.s
+signed-overflow-clang-O0: signed-overflow-clang-O0.s
 
 
-int-overflow-clang-O1: int-overflow-clang-O1.s
+signed-overflow-clang-O1: signed-overflow-clang-O1.s
 
 
-int-overflow-clang-O2: int-overflow-clang-O2.s
+signed-overflow-clang-O2: signed-overflow-clang-O2.s
 
 
 unsigned-overflow-gcc-O1: unsigned-overflow.c
