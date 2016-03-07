@@ -82,9 +82,20 @@ CUB = \
          unpredictable-ub-clang-cub-O2
 cub: $(CUB)
 
+# -fsanitize=undefined demo
+.PHONY: sanitize-undefined
+SANITIZE_UNDEFINED = \
+         signed-overflow-clang-sanitize-undefined-O0 \
+         signed-overflow-clang-sanitize-undefined-O1 \
+         signed-overflow-clang-sanitize-undefined-O2 \
+         unpredictable-ub-clang-sanitize-undefined-O0 \
+         unpredictable-ub-clang-sanitize-undefined-O1 \
+         unpredictable-ub-clang-sanitize-undefined-O2
+sanitize-undefined: $(SANITIZE_UNDEFINED)
+
 # All targets
 ALL = $(DEFAULT) $(SIGNED_OVERFLOW) $(UNSIGNED_OVERFLOW) $(UNPREDICTABLE) \
-      $(FTRAPV) $(CUB)
+      $(FTRAPV) $(CUB) $(SANITIZE_UNDEFINED)
 .PHONY: all
 all: $(ALL)
 
@@ -175,6 +186,16 @@ exception-auto: exception-auto.cc
 
 %-clang-cub-O2 : %.c
 	clang -O2 -fcatch-undefined-behavior $< -o $@
+
+# Test -fsanitize=undefined
+%-clang-sanitize-undefined-O0 : %.c
+	clang -O0 -fsanitize=undefined $< -o $@
+
+%-clang-sanitize-undefined-O1 : %.c
+	clang -O1 -fsanitize=undefined $< -o $@
+
+%-clang-sanitize-undefined-O2 : %.c
+	clang -O2 -fsanitize=undefined $< -o $@
 
 ######################################################################
 # Convenience Targets
