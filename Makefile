@@ -4,9 +4,14 @@
 # redistributed for any purpose in any form.
 
 
-DEFAULT = exception-leak exception-try exception-auto
+######################################################################
+# Targets
+#
+######################################################################
+
+
 .PHONY: default
-default: $(DEFAULT)
+default: all
 
 # signed-overflow demo
 SIGNED_OVERFLOW = \
@@ -98,9 +103,12 @@ FWRAPV = \
          unpredictable-ub-clang-fwrapv-O2
 fwrapv: $(FWRAPV)
 
-# All targets
-ALL = $(DEFAULT) $(SIGNED_OVERFLOW) $(UNSIGNED_OVERFLOW) $(UNPREDICTABLE) \
-      $(FTRAPV) $(SANITIZE_UNDEFINED) $(FWRAPV)
+EXCEPTION = exception-leak exception-try exception-auto
+.PHONY: exception
+exception: $(EXCEPTION)
+
+ALL = $(SIGNED_OVERFLOW) $(UNSIGNED_OVERFLOW) $(UNPREDICTABLE) \
+      $(FTRAPV) $(SANITIZE_UNDEFINED) $(FWRAPV) $(EXCEPTION)
 .PHONY: all
 all: $(ALL)
 
@@ -116,22 +124,13 @@ VPATH = $(SRC_DIRS)
 
 
 ######################################################################
-# Dependencies
+# Build Variables
 #
 ######################################################################
 
 
-
-exception-leak: exception-leak.cc
-	g++ -O2 $< -o $@
-
-
-exception-try: exception-try.cc
-	g++ -O2 $< -o $@
-
-
-exception-auto: exception-auto.cc
-	g++ -O2 $< -o $@
+# Actually only used for the exception demo
+#CXXFLAGS = -O2
 
 
 ######################################################################
