@@ -9,26 +9,21 @@
 
 
 #include <iostream>
+#include <memory>
+#include <vector>
 
 
 // A class whose ctor succeeds
 class Succeeds
 {
 private:
-    char *myData;
+    std::auto_ptr<std::vector<int> > myData;
 
 public:
 
-    Succeeds(size_t size) : myData(NULL)
-    {
-        myData = new char[size];
-    }
+    Succeeds() : myData(new std::vector<int>) { }
 
-    virtual ~Succeeds()
-    {
-        delete[] myData;
-        myData = NULL;
-    }
+    virtual ~Succeeds() { }
 };
 
 
@@ -65,10 +60,8 @@ private:
 
 public:
 
-    ExceptionLeak() : mySucceeds(NULL), myThrows(NULL)
+    ExceptionLeak() : mySucceeds(new Succeeds), myThrows(NULL)
     {
-        mySucceeds = new Succeeds(100);
-
         try {
             myThrows = new Throws(100);
         }
