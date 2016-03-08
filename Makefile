@@ -82,9 +82,26 @@ SANITIZE_UNDEFINED = \
          unpredictable-ub-clang-sanitize-undefined-O2
 sanitize-undefined: $(SANITIZE_UNDEFINED)
 
+# -fwrapv demo
+.PHONY: fwrapv
+FWRAPV = \
+         signed-overflow-gcc-fwrapv-O0 \
+         signed-overflow-gcc-fwrapv-O1 \
+         signed-overflow-gcc-fwrapv-O2 \
+         signed-overflow-clang-fwrapv-O0 \
+         signed-overflow-clang-fwrapv-O1 \
+         signed-overflow-clang-fwrapv-O2 \
+         unpredictable-ub-gcc-fwrapv-O0 \
+         unpredictable-ub-gcc-fwrapv-O1 \
+         unpredictable-ub-gcc-fwrapv-O2 \
+         unpredictable-ub-clang-fwrapv-O0 \
+         unpredictable-ub-clang-fwrapv-O1 \
+         unpredictable-ub-clang-fwrapv-O2
+fwrapv: $(FWRAPV)
+
 # All targets
 ALL = $(DEFAULT) $(SIGNED_OVERFLOW) $(UNSIGNED_OVERFLOW) $(UNPREDICTABLE) \
-      $(FTRAPV) $(SANITIZE_UNDEFINED)
+      $(FTRAPV) $(SANITIZE_UNDEFINED) $(FWRAPV)
 .PHONY: all
 all: $(ALL)
 
@@ -175,6 +192,25 @@ exception-auto: exception-auto.cc
 
 %-clang-sanitize-undefined-O2 : %.c
 	clang -O2 -fsanitize=undefined $< -o $@
+
+# Test -fwrapv
+%-gcc-fwrapv-O0 : %.c
+	gcc -O0 -fwrapv $< -o $@
+
+%-gcc-fwrapv-O1 : %.c
+	gcc -O1 -fwrapv $< -o $@
+
+%-gcc-fwrapv-O2 : %.c
+	gcc -O2 -fwrapv $< -o $@
+
+%-clang-fwrapv-O0 : %.c
+	clang -O0 -fwrapv $< -o $@
+
+%-clang-fwrapv-O1 : %.c
+	clang -O1 -fwrapv $< -o $@
+
+%-clang-fwrapv-O2 : %.c
+	clang -O2 -fwrapv $< -o $@
 
 ######################################################################
 # Convenience Targets
