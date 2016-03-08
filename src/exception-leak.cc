@@ -9,24 +9,23 @@
 
 
 #include <iostream>
+#include <memory>
+#include <vector>
 
 
 // A class whose ctor succeeds
 class Succeeds
 {
 private:
-    char *myData;
+    std::vector<int> *myData;
 
 public:
 
-    Succeeds(size_t size) : myData(NULL)
-    {
-        myData = new char[size];
-    }
+    Succeeds() : myData(new std::vector<int>) { }
 
     virtual ~Succeeds()
     {
-        delete[] myData;
+        delete myData;
         myData = NULL;
     }
 };
@@ -36,21 +35,21 @@ public:
 class Throws
 {
 private:
-    char *myData;
+    std::vector<int> *myData;
 
 public:
 
-    Throws(size_t size) : myData(NULL)
+    Throws() : myData(NULL)
     {
         // Simulate ctor failure
         throw "Throws::Throws() failed!";
         
-        myData = new char[size];
+        myData = new std::vector<int>;
     }
 
     virtual ~Throws()
     {
-        delete[] myData;
+        delete myData;
         myData = NULL;
     }
 };
@@ -65,12 +64,7 @@ private:
 
 public:
 
-    ExceptionLeak() : mySucceeds(NULL), myThrows(NULL)
-    {
-        mySucceeds = new Succeeds(100);
-
-        myThrows = new Throws(100);
-    }
+    ExceptionLeak() : mySucceeds(new Succeeds), myThrows(new Throws) { }
 
     virtual ~ExceptionLeak()
     {
