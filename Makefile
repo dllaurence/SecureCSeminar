@@ -130,7 +130,7 @@ VPATH = $(SRC_DIRS)
 
 
 # Actually only used for the exception demo
-#CXXFLAGS = -O2
+CXXFLAGS = -O2
 
 
 ######################################################################
