@@ -1,5 +1,12 @@
-// "C Exception Pattern" example using
-// Exception interface pattern 2
+/*
+  exception-pattern2.c
+
+  Copyright Dustin Laurence, 2016.  This file may be used and/or
+  redistributed for any purpose in any form.
+
+  "C Exception Pattern" example using Exception interface pattern 2
+*/
+
 
 float foo(int *err)
 {

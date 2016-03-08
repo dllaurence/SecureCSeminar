@@ -1,5 +1,12 @@
-// "C Exception Pattern" example using
-// Exception interface pattern 1
+/*
+  exception-pattern1.c
+
+  Copyright Dustin Laurence, 2016.  This file may be used and/or
+  redistributed for any purpose in any form.
+
+  "C Exception Pattern" example using Exception interface pattern 1
+*/
+
 
 int foo(float *result)
 {

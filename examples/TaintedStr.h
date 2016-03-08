@@ -1,6 +1,11 @@
-// TaintedStr.h
-//
-// taint analysis example
+/*
+  TaintedStr.h
+
+  Copyright Dustin Laurence, 2016.  This file may be used and/or
+  redistributed for any purpose in any form.
+
+  Taint analysis example
+*/
 
 
 typedef struct {
