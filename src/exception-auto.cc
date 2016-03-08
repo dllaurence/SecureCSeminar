@@ -47,7 +47,7 @@ public:
 };
 
 
-class ExceptionLeak
+class ExceptionNoleak
 {
 private:
 
@@ -56,19 +56,19 @@ private:
 
 public:
 
-    ExceptionLeak()
+    ExceptionNoleak()
         : mySucceeds(new Succeeds),
           myThrows(new Throws)
     { }
 
-    virtual ~ExceptionLeak() { };
+    virtual ~ExceptionNoleak() { };
 };
 
 
 int main()
 {
     try {
-        ExceptionLeak leak;
+        ExceptionNoleak noleak;
     }
     catch (const char *err) {
         std::cout << "Caught exception '" << err << "'" << std::endl;
