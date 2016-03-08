@@ -31,27 +31,23 @@ public:
 class Throws
 {
 private:
-    char *myData;
+    std::auto_ptr<std::vector<int> > myData;
 
 public:
 
-    Throws(size_t size) : myData(NULL)
+    Throws() : myData()
     {
         // Simulate ctor failure
         throw "Throws::Throws() failed!";
         
-        myData = new char[size];
+        myData.reset(new std::vector<int>);
     }
 
-    virtual ~Throws()
-    {
-        delete[] myData;
-        myData = NULL;
-    }
+    virtual ~Throws() { }
 };
 
 
-class ExceptionLeak
+class ExceptionNoleak
 {
 private:
 
@@ -60,10 +56,10 @@ private:
 
 public:
 
-    ExceptionLeak() : mySucceeds(new Succeeds), myThrows(NULL)
+    ExceptionNoleak() : mySucceeds(new Succeeds), myThrows()
     {
         try {
-            myThrows = new Throws(100);
+            myThrows = new Throws;
         }
         catch (...) {
             delete mySucceeds;
@@ -73,7 +69,7 @@ public:
         }
     }
 
-    virtual ~ExceptionLeak()
+    virtual ~ExceptionNoleak()
     {
         delete myThrows;
         myThrows = NULL;
@@ -87,7 +83,7 @@ public:
 int main()
 {
     try {
-        ExceptionLeak leak;
+        ExceptionNoleak noleak;
     }
     catch (const char *err) {
         std::cout << "Caught exception '" << err << "'" << std::endl;
