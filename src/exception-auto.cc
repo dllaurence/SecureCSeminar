@@ -21,7 +21,7 @@ private:
 
 public:
 
-    Succeeds(size_t size) : myData(new std::vector<int>) { }
+    Succeeds() : myData(new std::vector<int>) { }
 
     virtual ~Succeeds() { }
 };
@@ -35,7 +35,7 @@ private:
 
 public:
 
-    Throws(size_t size) : myData()
+    Throws() : myData()
     {
         // Simulate ctor failure
         throw "Throws::Throws() failed!";
@@ -57,8 +57,8 @@ private:
 public:
 
     ExceptionLeak()
-        : mySucceeds(new Succeeds(100)),
-          myThrows(new Throws(100))
+        : mySucceeds(new Succeeds),
+          myThrows(new Throws)
     { }
 
     virtual ~ExceptionLeak() { };
