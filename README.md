@@ -1,7 +1,7 @@
 Secure Programming In C/C++
 ===========================
 
-Seminar examples and supporting material.
+Seminar examples, supporting material, and references.
 
 by Dustin Laurence
 
