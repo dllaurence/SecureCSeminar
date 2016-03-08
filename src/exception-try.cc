@@ -17,13 +17,17 @@
 class Succeeds
 {
 private:
-    std::auto_ptr<std::vector<int> > myData;
+    std::vector<int> *myData;
 
 public:
 
     Succeeds() : myData(new std::vector<int>) { }
 
-    virtual ~Succeeds() { }
+    virtual ~Succeeds()
+    {
+        delete myData;
+        myData = NULL;
+    }
 };
 
 
@@ -31,19 +35,23 @@ public:
 class Throws
 {
 private:
-    std::auto_ptr<std::vector<int> > myData;
+    std::vector<int> *myData;
 
 public:
 
-    Throws() : myData()
+    Throws() : myData(NULL)
     {
         // Simulate ctor failure
         throw "Throws::Throws() failed!";
         
-        myData.reset(new std::vector<int>);
+        myData = new std::vector<int>;
     }
 
-    virtual ~Throws() { }
+    virtual ~Throws()
+    {
+        delete myData;
+        myData = NULL;
+    }
 };
 
 
@@ -56,7 +64,7 @@ private:
 
 public:
 
-    ExceptionNoleak() : mySucceeds(new Succeeds), myThrows()
+    ExceptionNoleak() : mySucceeds(new Succeeds), myThrows(NULL)
     {
         try {
             myThrows = new Throws;
