@@ -4,8 +4,7 @@
 # redistributed for any purpose in any form.
 
 
-DEFAULT = exercise1 \
-      exception-leak exception-try exception-auto
+DEFAULT = exception-leak exception-try exception-auto
 .PHONY: default
 default: $(DEFAULT)
 
@@ -122,10 +121,6 @@ VPATH = $(SRC_DIRS)
 ######################################################################
 
 
-
-exercise1: exercise1.o records.o
-exercise1.o: records.h
-records.o: records.h
 
 exception-leak: exception-leak.cc
 	g++ -O2 $< -o $@
