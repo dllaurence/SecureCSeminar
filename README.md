@@ -5,7 +5,7 @@ Seminar examples, supporting material, and references.
 
 by Dustin Laurence
 
-Bibliography
+Presentation Bibliography
 ------------
 
 N.B. The reference names are inconsistent because I needed some to be
@@ -51,3 +51,9 @@ more useful than the author name during the presentation.
 
 [UBGuide] Regehr, John, [“A Guide to Undefined Behavior in C and C++, Part 1”]
 (http://blog.regehr.org/archives/213)
+
+
+Additional References
+------------
+
+[HIC++ Coding Standards](http://www.programmingresearch.com/content/literature/PRQA-HICPP.pdf)
