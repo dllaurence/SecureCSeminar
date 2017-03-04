@@ -13,9 +13,9 @@
 
 
 // What does this function do?
-int will_overflow(int a)
+int will_overflow(int n)
 {
-    return (a+1) < a;
+    return (n+1) < n;
 }
 
 

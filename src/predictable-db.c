@@ -14,9 +14,9 @@
 
 
 // What does this function do?
-int will_overflow(unsigned a)
+int will_overflow(unsigned n)
 {
-    return (a+1) == 0;
+    return (n+1) == 0;
 }
 
 

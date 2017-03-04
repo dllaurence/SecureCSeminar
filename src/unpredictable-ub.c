@@ -14,9 +14,9 @@
 
 
 // What does this function do?
-int will_overflow(int a)
+int will_overflow(int n)
 {
-    return (a+1) == INT_MIN;
+    return (n+1) == INT_MIN;
 }
 
 

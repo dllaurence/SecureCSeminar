@@ -11,7 +11,7 @@
 
 
 .PHONY: default
-default: all
+default: buildable
 
 # signed-overflow demo
 SIGNED_OVERFLOW = \
@@ -103,12 +103,26 @@ FWRAPV = \
          unpredictable-ub-clang-fwrapv-O2
 fwrapv: $(FWRAPV)
 
+# exception demo
 EXCEPTION = exception-leak exception-try exception-auto
 .PHONY: exception
 exception: $(EXCEPTION)
 
-ALL = $(SIGNED_OVERFLOW) $(UNSIGNED_OVERFLOW) $(UNPREDICTABLE) \
-      $(FTRAPV) $(SANITIZE_UNDEFINED) $(FWRAPV) $(EXCEPTION)
+# buffer overflow demo
+BUFFER = loops
+.PHONY: BUFFER
+buffer: $(BUFFER)
+
+BUILDABLE = $(SIGNED_OVERFLOW) $(UNSIGNED_OVERFLOW) $(UNPREDICTABLE) \
+      $(FTRAPV) $(SANITIZE_UNDEFINED) $(FWRAPV) $(EXCEPTION) $(BUFFER)
+.PHONY: buildable
+buildable: $(BUILDABLE)
+
+NOT_BUILDABLE = loops_const
+.PHONY: not_buildable
+not_buildable: $(ALL)
+
+ALL = $(BUILDABLE) $(NOT_BUILDABLE)
 .PHONY: all
 all: $(ALL)
 
@@ -128,6 +142,8 @@ VPATH = $(SRC_DIRS)
 #
 ######################################################################
 
+
+CFLAGS = -std=c11 -Wall -Wextra
 
 # Actually only used for the exception demo
 CXXFLAGS = -O2
